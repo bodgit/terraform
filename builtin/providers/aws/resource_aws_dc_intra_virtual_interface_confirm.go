@@ -19,6 +19,13 @@ func resourceAwsDirectConnectIntraVirtualInterfaceConfirm() *schema.Resource {
 		Read:   resourceAwsDirectConnectIntraVirtualInterfaceConfirmRead,
 		Delete: resourceAwsDirectConnectIntraVirtualInterfaceConfirmDelete,
 
+		Importer: &schema.ResourceImporter{
+			State: func(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+				d.Set("virtual_interface_id", d.Id())
+				return []*schema.ResourceData{d}, nil
+			},
+		},
+
 		Schema: map[string]*schema.Schema{
 
 			"interface_type": &schema.Schema{
